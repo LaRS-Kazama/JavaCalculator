@@ -7,7 +7,7 @@ public class AppLauncher {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Caculator().setVisible(true);
+                new Calculator().setVisible(true);
             }
         });
     }

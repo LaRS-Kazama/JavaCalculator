@@ -41,30 +41,40 @@ public class Calculator extends BaseForm {
                 "1", "2", "3", "+",
                 "%", "0", ".", "="
         };
+        JPanel buttonPanel = new JPanel(new GridLayout(5, 4, 10, 10));
+        buttonPanel.setBounds(20, 90, 335, 350);
+        buttonPanel.setBackground(Color.WHITE);
+
         buttons = new JButton[buttonLabels.length];
 
-        int startX = 20;
-        int startY = 90;
-        int width = 75;
-        int height = 60;
-        int buttonGap = 10;
-
         for (int i = 0; i < buttonLabels.length; i++) {
-            buttons[i] = new JButton(buttonLabels[i]);
+            String label = buttonLabels[i];
+            JButton button = new JButton(label);
+            buttons[i] = button;
 
-            int row = i / 4;
-            int col = i % 4;
-            buttons[i].setBounds(
-                    startX + col * (width + buttonGap),
-                    startY + row * (height + buttonGap),
-                    width,
-                    height
-            );
-            buttons[i].setFont(new Font("Arial", Font.BOLD, 20));
 
+            button.setFont(new Font("Arial", Font.BOLD, 20));
+            button.setFocusPainted(false);
+            button.setOpaque(true);
+            button.setBorderPainted(false);
+
+            if (label.matches("AC|←|\\+/-|÷|×|\\-|\\+")) {
+                button.setForeground(new Color(0x4285F4)); // Google-style blue
+                button.setBackground(Color.WHITE);
+                button.setOpaque(true);
+                button.setBorderPainted(false);
+            } else if (label.equals("=")){
+                button.setBackground(new Color(0x4285F4));
+                button.setForeground(Color.WHITE);
+                button.setOpaque(true);
+                button.setBorderPainted(false);
+            } else {
+                button.setForeground(Color.BLACK);
+                button.setBackground(Color.WHITE);
+            }
 
             final int index = i;
-            buttons[i].addActionListener(e -> {
+            button.addActionListener(e -> {
                 String buttonText = buttonLabels[index];
 
                 switch (buttonText) {
@@ -136,7 +146,8 @@ public class Calculator extends BaseForm {
                 }
             });
 
-            this.add(buttons[i]);
+            buttonPanel.add(button);
         }
+        this.add(buttonPanel);
     }
 }
